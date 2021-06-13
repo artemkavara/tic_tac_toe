@@ -23,7 +23,14 @@ public class Board {
     }
 
     public boolean setPlayer(int row, int column, int player){
-        Square currentSquare = this.getSquareByCoordinates(row, column);
+        Square currentSquare;
+
+        try{
+            currentSquare = this.getSquareByCoordinates(row, column);
+        } catch (IndexOutOfBoundsException e){
+            return false;
+        }
+
         if (currentSquare.getPlayerChoice() == 0){
             currentSquare.setPlayerChoice(player);
             return true;
