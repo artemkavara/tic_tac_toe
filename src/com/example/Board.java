@@ -1,11 +1,13 @@
 package com.example;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Board {
+public class Board implements Serializable {
 
     private List<List<Square>> squares;
+    int countMoves;
 
     public Board(){
         squares = new ArrayList<>();
@@ -16,6 +18,7 @@ public class Board {
             }
             this.squares.add(squareRow);
         }
+        countMoves = 0;
     }
 
     public Square getSquareByCoordinates(int row, int column){
@@ -33,6 +36,7 @@ public class Board {
 
         if (currentSquare.getPlayerChoice() == 0){
             currentSquare.setPlayerChoice(player);
+            countMoves++;
             return true;
         }
         return false;
@@ -74,5 +78,16 @@ public class Board {
             }
             System.out.print("\n");
         }
+    }
+
+    public String getBoardString(){
+        String boardString = "";
+        for (int i = 0; i<3; i++){
+            for (Square square: squares.get(i)){
+                boardString = boardString + square.getStringOfSquare()+" ";
+            }
+            boardString = boardString + "\n";
+        }
+        return boardString;
     }
 }
